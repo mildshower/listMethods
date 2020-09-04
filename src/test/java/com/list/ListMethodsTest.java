@@ -64,4 +64,17 @@ class ListMethodsTest {
     Integer[] evens = ListMethods.filter(new Integer[]{}, num -> fail());
     assertArrayEquals(evens, new Integer[]{}, "filterShouldProvideEmptyListIfEmptyListGiven");
   }
+
+  @Test
+  void mapShouldMapEachElement() {
+    String[] greetings = "Hi Hello Welcome".split(" ");
+    Object[] mappedGreetings = ListMethods.map(greetings, str -> "." + str + ".");
+    assertArrayEquals(new Object[]{".Hi.",".Hello.",".Welcome."}, mappedGreetings);
+  }
+
+  @Test
+  void mapShouldReturnEmptyListForEmptyGivenList() {
+    Object[] mappedGreetings = ListMethods.map(new String[]{}, str -> "." + str + ".");
+    assertArrayEquals(new Object[]{}, mappedGreetings);
+  }
 }
