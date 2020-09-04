@@ -49,27 +49,27 @@ class ListMethodsTest {
   void filterShouldProvideListOfValidatedValuesOnly() {
     Integer[] numbers = {0, 1, 2, 3, 4, 5};
     Integer[] evens = ListMethods.filter(numbers, num -> num % 2 == 0);
-    assertArrayEquals(evens, new Integer[]{0, 2, 4}, "filterShouldProvideListOfValidatedValuesOnly");
+    assertArrayEquals(new Integer[]{0, 2, 4}, evens, "filterShouldProvideListOfValidatedValuesOnly");
   }
 
   @Test
   void filterShouldProvideEmptyListWhenNoElementsIsValidated() {
     Integer[] numbers = {1, 3, 5, 7};
     Integer[] evens = ListMethods.filter(numbers, num -> num % 2 == 0);
-    assertArrayEquals(evens, new Integer[]{}, "filterShouldProvideEmptyListWhenNoElementsIsValidated");
+    assertArrayEquals(new Integer[]{}, evens, "filterShouldProvideEmptyListWhenNoElementsIsValidated");
   }
 
   @Test
   void filterShouldProvideEmptyListIfEmptyListGiven() {
     Integer[] evens = ListMethods.filter(new Integer[]{}, num -> fail());
-    assertArrayEquals(evens, new Integer[]{}, "filterShouldProvideEmptyListIfEmptyListGiven");
+    assertArrayEquals(new Integer[]{}, evens, "filterShouldProvideEmptyListIfEmptyListGiven");
   }
 
   @Test
   void mapShouldMapEachElement() {
     String[] greetings = "Hi Hello Welcome".split(" ");
-    String [] mappedGreetings = ListMethods.map(greetings, str -> "." + str + ".", new String[]{});
-    assertArrayEquals(new String[]{".Hi.",".Hello.",".Welcome."}, mappedGreetings);
+    String[] mappedGreetings = ListMethods.map(greetings, str -> "." + str + ".", new String[]{});
+    assertArrayEquals(new String[]{".Hi.", ".Hello.", ".Welcome."}, mappedGreetings);
   }
 
   @Test

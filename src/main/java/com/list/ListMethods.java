@@ -21,14 +21,13 @@ public class ListMethods {
   }
 
   static public <T> T[] filter(T[] values, Predicate<T> predicate) {
-    T[] filteredValues = values.clone();
-    int currIndex = 0;
+    ArrayList<T> filteredValues = new ArrayList<>();
     for (T value : values) {
       if (predicate.apply(value)) {
-        filteredValues[currIndex++] = value;
+        filteredValues.add(value);
       }
     }
-    return Arrays.copyOf(filteredValues, currIndex);
+    return filteredValues.toArray(Arrays.copyOf(values, 0));
   }
 
   static public <T, U> U[] map(T[] values, Mapper<T, U> mapper, U[] typeArray) {
