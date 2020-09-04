@@ -1,6 +1,6 @@
 package com.list;
 
-import java.util.ArrayList;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class ListMethods {
@@ -19,20 +19,23 @@ public class ListMethods {
   }
 
   static public <T> T[] filter(T[] values, Predicate<T> predicate) {
-    ArrayList<T> filteredValues = new ArrayList<>();
+    @SuppressWarnings("unchecked")
+    T[] filteredValues1 = (T[]) Array.newInstance(values.getClass().getComponentType(), values.length);
+    int currIndex = 0;
     for (T value : values) {
       if (predicate.apply(value)) {
-        filteredValues.add(value);
+        filteredValues1[currIndex++] = value;
       }
     }
-    return filteredValues.toArray(Arrays.copyOf(values, 0));
+    return Arrays.copyOf(filteredValues1, currIndex);
   }
 
-  static public <T, U> U[] map(T[] values, Mapper<T, U> mapper, U[] mappedList) {
-    ArrayList<U> mappedValues = new ArrayList<>(values.length);
-    for (T value : values) {
-      mappedValues.add(mapper.apply(value));
+  static public <T, U> U[] map(T[] values, Mapper<T, U> mapper, Class<U> returnListType) {
+    @SuppressWarnings("unchecked")
+    U[] mappedList = (U[]) Array.newInstance(returnListType, values.length);
+    for (int index = 0; index < values.length; index++) {
+      mappedList[index] = mapper.apply(values[index]);
     }
-    return mappedValues.toArray(mappedList);
+    return mappedList;
   }
 }
