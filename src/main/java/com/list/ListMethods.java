@@ -6,4 +6,12 @@ public class ListMethods {
             action.apply(value);
         }
     }
+
+    static public <T, U> U reduce(T[] values, Reducer<T, U> reducer, U initialContext) {
+        U context = initialContext;
+        for (T value : values) {
+            context = reducer.apply(context, value);
+        }
+        return context;
+    }
 }

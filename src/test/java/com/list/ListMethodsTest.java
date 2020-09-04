@@ -4,18 +4,48 @@
 package com.list;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ListMethodsTest {
-    @Test void shouldCallTheConsumerWithEachElements() {
-        String[] greetings = "Hi Hello Welcome".split(" ");
-        ListMethods.forEach(greetings, str -> {
-            assertTrue(str.matches("Hi|Hello|Welcome"), "shouldCallTheConsumerWithEachElements");
-        });
-    }
+  @Test
+  void forEachShouldCallTheConsumerWithEachElements() {
+    String[] greetings = "Hi Hello Welcome".split(" ");
+    ListMethods.forEach(greetings, str -> {
+      assertTrue(str.matches("Hi|Hello|Welcome"), "shouldCallTheConsumerWithEachElements");
+    });
+  }
 
-    @Test
-    void shouldNotCallConsumerIfListIsEmpty () {
-        ListMethods.forEach(new String[]{}, str -> fail());
-    }
+  @Test
+  void forEachShouldNotCallConsumerIfListIsEmpty() {
+    ListMethods.forEach(new String[]{}, str -> fail());
+  }
+
+  @Test
+  void reduceShouldGoThroughAllElementsAndProduceResult() {
+    Character[] characters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'};
+
+    Reducer<Character, Integer> vowelCounter = (currCount, currChar) -> {
+      if (("" + currChar).matches("[aeiou]")) {
+        return currCount + 1;
+      }
+      return currCount;
+    };
+
+    final Integer vowelCount = ListMethods.reduce(characters, vowelCounter, 0);
+    assertEquals(vowelCount, 3, "reduceShouldGoThroughAllElementsAndProduceResult");
+  }
+
+  @Test
+  void reduceShouldReturnInitialContextForEmptyList() {
+    Character[] characters = {};
+
+    Reducer<Character, Integer> vowelCounter = (currCount, currChar) -> {
+      fail();
+      return null;
+    };
+
+    final Integer vowelCount = ListMethods.reduce(characters, vowelCounter, 0);
+    assertEquals(vowelCount, 0, "reduceShouldGoThroughAllElementsAndProduceResult");
+  }
 }
