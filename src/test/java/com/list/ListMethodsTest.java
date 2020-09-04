@@ -38,14 +38,30 @@ class ListMethodsTest {
 
   @Test
   void reduceShouldReturnInitialContextForEmptyList() {
-    Character[] characters = {};
-
-    Reducer<Character, Integer> vowelCounter = (currCount, currChar) -> {
+    final Integer vowelCount = ListMethods.reduce(new Character[]{}, (currCount, currChar) -> {
       fail();
       return null;
-    };
-
-    final Integer vowelCount = ListMethods.reduce(characters, vowelCounter, 0);
+    }, 0);
     assertEquals(vowelCount, 0, "reduceShouldGoThroughAllElementsAndProduceResult");
+  }
+
+  @Test
+  void filterShouldProvideListOfValidatedValuesOnly() {
+    Integer[] numbers = {0, 1, 2, 3, 4, 5};
+    Integer[] evens = ListMethods.filter(numbers, num -> num % 2 == 0);
+    assertArrayEquals(evens, new Integer[]{0, 2, 4}, "filterShouldProvideListOfValidatedValuesOnly");
+  }
+
+  @Test
+  void filterShouldProvideEmptyListWhenNoElementsIsValidated() {
+    Integer[] numbers = {1, 3, 5, 7};
+    Integer[] evens = ListMethods.filter(numbers, num -> num % 2 == 0);
+    assertArrayEquals(evens, new Integer[]{}, "filterShouldProvideEmptyListWhenNoElementsIsValidated");
+  }
+
+  @Test
+  void filterShouldProvideEmptyListIfEmptyListGiven() {
+    Integer[] evens = ListMethods.filter(new Integer[]{}, num -> fail());
+    assertArrayEquals(evens, new Integer[]{}, "filterShouldProvideEmptyListIfEmptyListGiven");
   }
 }

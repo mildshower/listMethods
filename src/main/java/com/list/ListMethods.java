@@ -1,17 +1,30 @@
 package com.list;
 
-public class ListMethods {
-    static public <T> void forEach(T[] values, Consumer<T> action) {
-        for (T value : values) {
-            action.apply(value);
-        }
-    }
+import java.util.Arrays;
 
-    static public <T, U> U reduce(T[] values, Reducer<T, U> reducer, U initialContext) {
-        U context = initialContext;
-        for (T value : values) {
-            context = reducer.apply(context, value);
-        }
-        return context;
+public class ListMethods {
+  static public <T> void forEach(T[] values, Consumer<T> action) {
+    for (T value : values) {
+      action.apply(value);
     }
+  }
+
+  static public <T, U> U reduce(T[] values, Reducer<T, U> reducer, U initialContext) {
+    U context = initialContext;
+    for (T value : values) {
+      context = reducer.apply(context, value);
+    }
+    return context;
+  }
+
+  static public <T> T[] filter(T[] values, Predicate<T> predicate) {
+    T[] filteredValues = values.clone();
+    int currIndex = 0;
+    for (T value : values) {
+      if (predicate.apply(value)) {
+        filteredValues[currIndex++] = value;
+      }
+    }
+    return Arrays.copyOf(filteredValues, currIndex);
+  }
 }
