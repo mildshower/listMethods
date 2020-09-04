@@ -68,7 +68,7 @@ class ListMethodsTest {
   @Test
   void mapShouldMapEachElement() {
     String[] greetings = "Hi Hello Welcome".split(" ");
-    String[] mappedGreetings = ListMethods.map(greetings, str -> "." + str + ".", new String[]{});
+    String[] mappedGreetings = ListMethods.map(greetings, str -> "." + str + ".", new String[]{"yo"});
     assertArrayEquals(new String[]{".Hi.", ".Hello.", ".Welcome."}, mappedGreetings);
   }
 
