@@ -1,5 +1,8 @@
 package com.list;
 
+import org.checkerframework.checker.units.qual.A;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ListMethods {
@@ -28,11 +31,11 @@ public class ListMethods {
     return Arrays.copyOf(filteredValues, currIndex);
   }
 
-  static public <T> Object[] map(T[] values, Mapper<T> mapper) {
-    Object[] mappedValues = new Object[values.length];
-    for (int index = 0; index < values.length; index++) {
-      mappedValues[index] = mapper.apply(values[index]);
+  static public <T, U> U[] map(T[] values, Mapper<T, U> mapper, U[] typeArray) {
+    ArrayList<U> mappedValues = new ArrayList<>(values.length);
+    for (T value : values) {
+      mappedValues.add(mapper.apply(value));
     }
-    return mappedValues;
+    return mappedValues.toArray(typeArray);
   }
 }

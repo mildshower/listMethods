@@ -1,5 +1,5 @@
 package com.list;
 
-public interface Mapper<T> {
-  Object apply(T value);
+public interface Mapper<T, U> {
+  U apply(T value);
 }

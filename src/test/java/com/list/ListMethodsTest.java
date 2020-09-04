@@ -68,13 +68,13 @@ class ListMethodsTest {
   @Test
   void mapShouldMapEachElement() {
     String[] greetings = "Hi Hello Welcome".split(" ");
-    Object[] mappedGreetings = ListMethods.map(greetings, str -> "." + str + ".");
-    assertArrayEquals(new Object[]{".Hi.",".Hello.",".Welcome."}, mappedGreetings);
+    String [] mappedGreetings = ListMethods.map(greetings, str -> "." + str + ".", new String[]{});
+    assertArrayEquals(new String[]{".Hi.",".Hello.",".Welcome."}, mappedGreetings);
   }
 
   @Test
   void mapShouldReturnEmptyListForEmptyGivenList() {
-    Object[] mappedGreetings = ListMethods.map(new String[]{}, str -> "." + str + ".");
-    assertArrayEquals(new Object[]{}, mappedGreetings);
+    String[] mappedGreetings = ListMethods.map(new String[]{}, str -> "." + str + ".", new String[]{});
+    assertArrayEquals(new String[]{}, mappedGreetings);
   }
 }
